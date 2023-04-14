@@ -1,0 +1,88 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #f3f4ed;
+}
+body{
+    background-color: #424642;
+}
+nav{
+    height: 80px;
+}
+nav > a > button{
+    background-color: #536162;
+    color: #c06014;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    padding: 10px;
+    margin-left: 10px;
+    transition: .3s;
+    transform: translateY(25%);
+}
+nav > a > button:hover{
+    background: #f3f4ed;
+    border-bottom: 2px solid #c06014;
+    cursor: pointer;
+}
+nav > a > img{
+    border-radius: 50%;
+    width: 60px;
+    aspect-ratio: 1/1;
+    margin: 5px 5px;
+}
+nav > a{
+    float: right;
+
+}
+.logo{
+    float: left;
+}
+.box{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #536162;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgb(27, 27, 27);
+}
+.box > input{
+    outline: none;
+    box-shadow: 1px 1px 10px rgb(27, 27, 27);
+    background-color: #536162;
+    border:2px solid #f3f4ed;
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 16px;
+    margin: 10px 0px;
+    width: 200px;
+    display: block;
+    transition: .2s
+}
+
+.box > input:focus{
+    border: 2px solid #c06014;
+}
+
+.box > button{
+    background: #c06014;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    color: #f3f4ed;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgb(27, 27, 27);
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.box > button:active{
+    opacity: 0.8;
+}
+
+h1{
+    text-align: center;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UTE</title>
+    <script type="text/javascript">
+        function calculate() {
+            // g1 და g2 რაც მივიღეთ შეგვყავს აქ
+            var g1 = document.getElementById("g1").value;
+            var g2 = document.getElementById("g2").value;
+
+            // გრავიტაციული კონსტანტა
+            var G = 6.67430 * Math.pow(10, -11);
+
+           
+
+            // მერე მაგას ითვლის რო c კოეფიციენტი დაჯდეს
+            var c = g2 - g1;
+
+            // x და y შუალედებს ვწერთ აქ სადაც x არის ნავთობის დიამეტრი და y არის დისტანცია ზედაპირიდან იმ წერტილამდე საიდანაც ნავთობი იწყება მიწის ქვეშ
+           
+            var x_range = Array.from({length: 7}, (_, i) => i + 1);
+            var y_range = Array.from({length: 15}, (_, i) => i + 1);
+
+            // ერეის ვქმნი რო გამოთვლილი კომბინაციები x და y-ის შეინახოს და ასევე g-ს რასაც მივიღებთ
+            var combinations = [];
+            var calculated_g_values = [];
+
+            // აქ ლოგიკაა რო js იხედება წინანდელ შექმნილ ერეიში და ითვლის g-ს ანუ ფორმულაში სვავს g= G 4/3π(x/2)^3 * 800 / (x/2 +y)^2
+            for (var i = 0; i < x_range.length; i++) {
+                for (var j = 0; j < y_range.length; j++) {
+                    var x = x_range[i];
+                    var y = y_range[j];
+                    combinations.push([x, y]);
+
+                    var g =  (G * (4/3) * 3.14 * Math.pow(x/2, 3)) * 800 / Math.pow(x/2 + y, 2);
+                    calculated_g_values.push(g);
+                }
+            }
+
+            // აქ ეძებს მაქსიმუმ და მინიმუმს g-ში რაც მივიღეთ რო a<c<b დაჯდეს სადაც a არის ნაკლები c-ზე მარა რაც შეიძლება დიდი რიცხვი იმ გამოთვლილი g-ს ერეიდან და შესაბამისად b არის c-ზე დიდი რიცხვი მარა იმ ერეიდან რაც შეიძლება ნაკლები რო ყველაზე კარგი შუალედი დაგვიჯდეს
+            var a = [Math.max(...calculated_g_values)];
+            var b = [Math.min(...calculated_g_values)];
+
+            var a_result = a.filter(a => a < c);
+            var b_result = b.filter(b => b > c);
+
+            var a_percent = (a_result / c) * 100;
+            var b_percent = (b_result / c) * 100;
+
+            // შედეგებს ითვლის
+            document.getElementById("results").innerHTML = "შედეგები:<br> a: " + a_percent + "%<br> b: " + b_percent + "%<br> c: " + c;
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="index.html"><img src="logoicon.ico" alt="UTE"></a>
+            <a href="contact.html"><button>contact</button></a>
+            <a href="about-us.html"><button>about us</button></a>
+			<a href="gs.html"><button>claculate dif</button></a>
+            <a href="g2.html"><button>calculate g2</button></a>
+            <a href="index.html"><button>calculate g1</button></a>
+        </nav>
+    </header>
+    <h1>ჟეს ცვლილების მიხედვით ნავთობის მდებარეობის შესაძლო შუალედის მთვლელი</h1>
+    <div class="box">
+        <label for="g1">შეიყვანე g1:</label>
+        <input type="number" id="g1" name="g1"><br>
+        <label for="g2">შეიყვანე g2:</label>
+        <input type="number" id="g2" name="g2"><br>
+        <button onclick="calculate()">გამოთვლა</button>
+        <p id="results"></p>
+    </div>
+</body>
+</html>

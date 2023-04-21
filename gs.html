@@ -3,50 +3,36 @@
 <head>
     <title>UTE</title>
     <script type="text/javascript">
-        function calculate() {
-            // g1 და g2 რაც მივიღეთ შეგვყავს აქ
-            var g1 = document.getElementById("g1").value;
-            var g2 = document.getElementById("g2").value;
+    function calculate() {
 
-            // გრავიტაციული კონსტანტა
-            var G = 6.67430 * Math.pow(10, -11);
+    var g1 = document.getElementById("g1").value;
+    var g2 = document.getElementById("g2").value;
 
-           
+    var G = 6.67430 * Math.pow(10, -11);
 
-            // მერე მაგას ითვლის რო c კოეფიციენტი დაჯდეს
-            var c = g2 - g1;
+    var c = g2 - g1;
 
-            // x და y შუალედებს ვწერთ აქ სადაც x არის ნავთობის დიამეტრი და y არის დისტანცია ზედაპირიდან იმ წერტილამდე საიდანაც ნავთობი იწყება მიწის ქვეშ
-           
-            var x_range = Array.from({length: 7}, (_, i) => i + 1);
-            var y_range = Array.from({length: 15}, (_, i) => i + 1);
+    var x_range = Array.from({length: 2}, (_, i) => i + 1);
+    var y_range = Array.from({length: 15}, (_, j) => j + 1);
 
-            // ერეის ვქმნი რო გამოთვლილი კომბინაციები x და y-ის შეინახოს და ასევე g-ს რასაც მივიღებთ
-            var combinations = [];
-            var calculated_g_values = [];
+    var resultList = document.createElement('ul');
 
-            // აქ ლოგიკაა რო js იხედება წინანდელ შექმნილ ერეიში და ითვლის g-ს ანუ ფორმულაში სვავს g= G 4/3π(x/2)^3 * 800 / (x/2 +y)^2
-            for (var i = 0; i < x_range.length; i++) {
-                for (var j = 0; j < y_range.length; j++) {
-                    var x = x_range[i];
-                    var y = y_range[j];
-                    combinations.push([x, y]);
+    for (var i = 0; i < x_range.length; i++) {
+        for (var j = 0; j < y_range.length; j++) {
+            var x = x_range[i];
+            var y = y_range[j];
+            
 
-                    var g =  (G * (4/3) * Math.PI * Math.pow(x/2, 3)) * 800 / Math.pow(x/2 + y, 2);
-                    calculated_g_values.push(g);
-                }
-            }
+            var g = (G * (4/3) * 3.14 * Math.pow(x/2, 3)) * 800 / 1000 * Math.pow(x + y, 2);
 
-            // აქ ეძებს მაქსიმუმ და მინიმუმს g-ში რაც მივიღეთ რო a<c<b დაჯდეს სადაც a არის ნაკლები c-ზე მარა რაც შეიძლება დიდი რიცხვი იმ გამოთვლილი g-ს ერეიდან და შესაბამისად b არის c-ზე დიდი რიცხვი მარა იმ ერეიდან რაც შეიძლება ნაკლები რო ყველაზე კარგი შუალედი დაგვიჯდეს
-            var a = [Math.max(...calculated_g_values)];
-            var b = [Math.min(...calculated_g_values)];
-
-            var a_result = a.filter(a => a < c);
-            var b_result = b.filter(b => b > c);
-
-            // შედეგებს ითვლის
-            document.getElementById("results").innerHTML = "შედეგები:<br> a: " + a_result + "<br> b: " + b_result + "<br> c: " + c;
+            const listItem = document.createElement('li');
+            listItem.textContent = `x=${x}, y=${y}, g=${g}`; 
+            resultList.appendChild(listItem); 
         }
+    }
+
+    document.getElementById("results").appendChild(resultList);
+    }
     </script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -68,7 +54,8 @@
         <label for="g2">შეიყვანე g2:</label>
         <input type="number" id="g2" name="g2"><br>
         <button onclick="calculate()">გამოთვლა</button>
-        <p id="results"></p>
+        
     </div>
+    <p id="results"></p>
 </body>
 </html>

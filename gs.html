@@ -32,7 +32,7 @@
                     var y = y_range[j];
                     combinations.push([x, y]);
 
-                    var g =  (G * (4/3) * 3.14 * Math.pow(x/2, 3)) * 800 / Math.pow(x/2 + y, 2);
+                    var g =  (G * (4/3) * Math.PI * Math.pow(x/2, 3)) * 800 / Math.pow(x/2 + y, 2);
                     calculated_g_values.push(g);
                 }
             }
@@ -44,11 +44,8 @@
             var a_result = a.filter(a => a < c);
             var b_result = b.filter(b => b > c);
 
-            var a_percent = (a_result / c) * 100;
-            var b_percent = (b_result / c) * 100;
-
             // შედეგებს ითვლის
-            document.getElementById("results").innerHTML = "შედეგები:<br> a: " + a_percent + "%<br> b: " + b_percent + "%<br> c: " + c;
+            document.getElementById("results").innerHTML = "შედეგები:<br> a: " + a_result + "<br> b: " + b_result + "<br> c: " + c;
         }
     </script>
     <link rel="stylesheet" href="style.css">
